@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "esnext",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "resolveJsonModule": true,
+    "types": ["jest", "reflect-metadata", "node"],
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "rootDir": "src",
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/*"],
+  "exclude": ["node_modules"]
+}

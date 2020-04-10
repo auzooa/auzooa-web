@@ -1,0 +1,23 @@
+:root {
+  --foreground-color: black;
+  --background-color: white;
+  --primary-color: blue;
+  --secondary-color: orange;
+
+  --title-color: white;
+  --link-color: black;
+  --link-hover-color: white;
+
+  --title-font: 'Roboto', sans-serif;
+  --body-font: 'Roboto', sans-serif;
+  --title-text: 22px;
+  --body-text: 18px;
+  --small-text: 12px;
+
+  --base: 0.25rem;
+  --body-width: 50rem;
+  --s:calc(var(--base) * 2);
+  --m:calc(var(--base) * 4);
+  --b:calc(var(--base) * 8);
+  --l:calc(var(--base) * 12);
+}
