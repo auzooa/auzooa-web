@@ -23,6 +23,6 @@ export class Button extends LitElement {
   }
 
   render() {
-    return html` <button class="button"><slot></slot></button> `
+    return html`<button class="button"><slot></slot></button>`
   }
 }
