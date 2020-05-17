@@ -20,7 +20,7 @@ export const general = css`
   }
 
   p {
-    margin-bottom: var(--small-size);
+    margin-bottom: var(--s);
   }
 
   h1,
@@ -31,7 +31,7 @@ export const general = css`
   h6 {
     margin: 2rem 0 1rem;
     color: var(--title-color);
-    font-family: var(--title-font);
+    font-family: var(--title-font), sans-serif;
     font-size: var(--title-text);
     font-weight: 900;
     line-height: 1.15;
@@ -60,10 +60,5 @@ export const general = css`
 
   h6 {
     font-size: 1rem;
-  }
-
-  strong {
-    letter-spacing: 1px;
-    color: var(--bold-color);
   }
 `

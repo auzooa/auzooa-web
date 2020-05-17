@@ -1,6 +1,6 @@
 :root {
   --foreground-color: black;
-  --background-color: white;
+  --background-color: hsl(257, 42%, 18%);
   --primary-color: blue;
   --secondary-color: orange;
 
@@ -16,8 +16,8 @@
 
   --base: 0.25rem;
   --body-width: 50rem;
-  --s:calc(var(--base) * 2);
-  --m:calc(var(--base) * 4);
-  --b:calc(var(--base) * 8);
-  --l:calc(var(--base) * 12);
+  --s: calc(var(--base) * 2);
+  --m: calc(var(--base) * 4);
+  --b: calc(var(--base) * 8);
+  --l: calc(var(--base) * 12);
 }
