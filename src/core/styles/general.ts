@@ -4,7 +4,11 @@ export const general = css`
   *,
   *::after,
   *::before {
-    box-sizing: inherit;
+    box-sizing: border-box;
+  }
+
+  :host {
+    display: block;
   }
 
   a:focus,

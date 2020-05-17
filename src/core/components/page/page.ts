@@ -9,12 +9,15 @@ export class Page extends LitElement {
       css`
         .page {
           width: 100%;
-          min-height: 100vh;
           background-color: var(--background-color);
           color: var(--on-background-color);
+          display: flex;
         }
 
         .wrapper {
+          flex: 1;
+          min-height: 100vh;
+          padding: var(--m);
           margin: 0 auto;
           max-width: 40rem;
         }
