@@ -3,8 +3,8 @@ import { Locale } from './locale'
 import { TranslationIdentifiers } from './translations/translation-identifiers'
 import { Translator } from './translator'
 import { TranslationError } from './translation-error'
-import { injectable } from '../../core/types/injectable'
-import { inject } from '../../core/types/inject'
+import { injectable } from '../types/injectable'
+import { inject } from '../types/inject'
 
 @injectable()
 export class TranslationService {

@@ -2,7 +2,7 @@ import { Translations } from './translations/translations'
 import { es } from './translations/es'
 import { en } from './translations/en'
 import { Locale } from './locale'
-import { injectable } from '../../core/types/injectable'
+import { injectable } from '../types/injectable'
 
 @injectable()
 export class Translator {

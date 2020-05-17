@@ -1,5 +1,5 @@
 import { injectable } from '../types/injectable'
-import { Locale } from '../../features/language/locale'
+import { Locale } from '../language/locale'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { State } from './state'
 

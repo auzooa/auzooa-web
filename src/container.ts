@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 import { container } from 'inversify-props'
 import { TYPES } from './types'
-import { TranslationService } from './features/language/translation-service'
-import { Translator } from './features/language/translator'
+import { TranslationService } from './core/language/translation-service'
+import { Translator } from './core/language/translator'
 import { map } from 'rxjs/operators'
 import { Store } from './core/store/store'
-import { Translation } from './features/language/translation'
+import { Translation } from './core/language/translation'
 
 container
   .bind<TranslationService>(TYPES.TRANSLATION_SERVICE)

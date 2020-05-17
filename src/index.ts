@@ -1,4 +1,4 @@
 import './container'
-import './features/styles/theme.css'
-import './features/styles/base.css'
+import './core/styles/theme.css'
+import './core/styles/base.css'
 import './auzooa'

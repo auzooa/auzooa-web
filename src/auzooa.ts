@@ -1,7 +1,7 @@
 import { customElement, html, LitElement } from 'lit-element'
 import { subscribe } from './core/subscribe'
 import { inject } from './core/types/inject'
-import { Translation } from './features/language/translation'
+import { Translation } from './core/language/translation'
 import { TYPES } from './types'
 
 @customElement('app-auzooa')

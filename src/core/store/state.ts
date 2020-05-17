@@ -1,4 +1,4 @@
-import { Locale } from '../../features/language/locale'
+import { Locale } from '../language/locale'
 
 export interface State {
   locale: Locale
