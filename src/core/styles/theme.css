@@ -1,5 +1,6 @@
 :root {
   --foreground-color: black;
+  --on-background-color: white;
   --background-color: hsl(257, 42%, 18%);
   --primary-color: blue;
   --secondary-color: orange;
