@@ -17,24 +17,6 @@ export class Counter extends LitElement {
   @inject(TYPES.TRANSLATION)
   translation!: Translation
 
-  connectedCallback() {
-    super.connectedCallback()
-    this.interval = window.setInterval(() => {
-      if (this.start > 0) {
-        this.start = this.start - 1
-      }
-
-      if (this.start === 0) {
-        this.dispatchEvent(new AppEvent('on-counter-end'))
-      }
-    }, 1_000)
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback()
-    window.clearInterval(this.interval)
-  }
-
   static get styles() {
     return [
       general,
@@ -80,6 +62,27 @@ export class Counter extends LitElement {
         }
       `
     ]
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.interval = window.setInterval(() => {
+      if (this.start !== 0) {
+        this.start--
+      } else {
+        this.dispatchEvent(new AppEvent('on-counter-end'))
+        this.clearInterval()
+      }
+    }, 1_000)
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.clearInterval()
+  }
+
+  private clearInterval() {
+    window.clearInterval(this.interval)
   }
   render() {
     return html`<div class="counter">
