@@ -1,4 +1,4 @@
-import { css, customElement, LitElement, html, property } from 'lit-element'
+import { css, customElement, html, LitElement, property } from 'lit-element'
 import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
