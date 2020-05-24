@@ -4,6 +4,7 @@ import { subscribe } from '../../subscribe'
 import { inject } from '../../types/inject'
 import { TYPES } from '../../../types'
 import { Translation } from '../../language/translation'
+import { AppEvent } from '../../app-event'
 
 @customElement('app-counter')
 export class Counter extends LitElement {
@@ -21,6 +22,10 @@ export class Counter extends LitElement {
     this.interval = window.setInterval(() => {
       if (this.start > 0) {
         this.start = this.start - 1
+      }
+
+      if (this.start === 0) {
+        this.dispatchEvent(new AppEvent('on-counter-end'))
       }
     }, 1_000)
   }

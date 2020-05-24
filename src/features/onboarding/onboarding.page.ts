@@ -40,11 +40,20 @@ export class OnboardingPage extends LitElement {
       `
     ]
   }
+
+  private goToHome() {
+    history.pushState(null, '', '/')
+  }
+
   render() {
     return html`<div class="wrapper">
       <h1>${subscribe(this.translation('onboarding_title'))}</h1>
       <p class="description">${subscribe(this.translation('onboarding_description'))}</p>
-      <app-counter class="counter" .start="${this.count}"></app-counter>
+      <app-counter
+        class="counter"
+        .start="${this.count}"
+        @on-counter-end="${this.goToHome}"
+      ></app-counter>
     </div>`
   }
 }
