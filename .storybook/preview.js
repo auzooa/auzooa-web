@@ -1,8 +1,5 @@
-import {
-  configure,
-  addParameters
-  // setCustomElements,
-} from '@storybook/web-components'
+import { configure, addParameters } from '@storybook/web-components'
+import 'reflect-metadata'
 
 addParameters({
   docs: {
