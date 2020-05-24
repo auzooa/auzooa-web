@@ -1,4 +1,4 @@
-import { css, customElement, LitElement, html } from 'lit-element'
+import { css, customElement, LitElement, html, property } from 'lit-element'
 import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
@@ -9,6 +9,9 @@ import { general } from '../../core/styles/general'
 export class OnboardingPage extends LitElement {
   @inject(TYPES.TRANSLATION)
   readonly translation!: Translation
+
+  @property({ type: Number })
+  count = 10
 
   static get styles() {
     return [
@@ -26,13 +29,22 @@ export class OnboardingPage extends LitElement {
           align-items: center;
           justify-content: center;
         }
+
+        .description {
+          text-align: center;
+        }
+
+        .counter {
+          width: 6rem;
+        }
       `
     ]
   }
   render() {
     return html`<div class="wrapper">
       <h1>${subscribe(this.translation('onboarding_title'))}</h1>
-      <p>${subscribe(this.translation('onboarding_description'))}</p>
+      <p class="description">${subscribe(this.translation('onboarding_description'))}</p>
+      <app-counter class="counter" .start="${this.count}"></app-counter>
     </div>`
   }
 }

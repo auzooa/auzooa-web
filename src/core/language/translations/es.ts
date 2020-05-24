@@ -3,6 +3,7 @@ import { TranslationIdentifiers } from './translation-identifiers'
 
 export const es: Translations = new Map<keyof TranslationIdentifiers, string>([
   ['_name', 'Auzooa'],
+  ['_seconds', 'segundos'],
   ['onboarding_title', '¿Qué es auzooa?'],
   [
     'onboarding_description',

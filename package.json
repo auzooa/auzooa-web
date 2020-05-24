@@ -25,6 +25,7 @@
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-proposal-decorators": "7.8.3",
+    "@babel/plugin-proposal-numeric-separator": "7.8.3",
     "@babel/preset-env": "7.9.5",
     "@babel/preset-typescript": "7.9.0",
     "@storybook/preset-typescript": "3.0.0",
