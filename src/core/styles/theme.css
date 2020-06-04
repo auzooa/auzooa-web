@@ -2,8 +2,10 @@
   --foreground-color: black;
   --on-background-color: white;
   --background-color: hsl(257, 42%, 18%);
-  --primary-color: blue;
-  --secondary-color: orange;
+  --primary-color: hsl(257, 42%, 18%);
+  --secondary-color: hsl(256, 34%, 24%);
+  --on-secondary-color: white;
+  --accent-color: orange;
 
   --title-color: white;
   --link-color: black;

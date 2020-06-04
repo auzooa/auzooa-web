@@ -1,5 +1,5 @@
-import { css, customElement, html, LitElement, PropertyValues, query } from 'lit-element'
-import { RouterSlot } from 'router-slot'
+import { customElement, html, LitElement, property, PropertyValues, query } from 'lit-element'
+import { IRoutingInfo, RouterSlot } from 'router-slot'
 import { general } from './core/styles/general'
 import { HomePage } from './features/home/home.page'
 import { inject } from './core/types/inject'
@@ -19,8 +19,11 @@ export class Auzooa extends LitElement {
   @inject(TYPES.SET_USER_FIRST_VISIT_USE_CASE)
   readonly setUserFirstVisitUseCase!: SetUserFirstVisitUseCase
 
+  @property({ type: String })
+  private currentTitle = ''
+
   static get styles() {
-    return [general, css``]
+    return [general]
   }
 
   connectedCallback() {
@@ -46,7 +49,10 @@ export class Auzooa extends LitElement {
       },
       {
         path: '/',
-        component: HomePage
+        component: HomePage,
+        setup: (component, _info: IRoutingInfo) => {
+          this.currentTitle = component.title
+        }
       },
       {
         path: '**',
@@ -57,6 +63,7 @@ export class Auzooa extends LitElement {
 
   render() {
     return html`<app-page>
+      <app-navbar slot="header" .title="${this.currentTitle}"></app-navbar>
       <router-slot></router-slot>
     </app-page>`
   }

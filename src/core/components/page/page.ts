@@ -12,6 +12,7 @@ export class Page extends LitElement {
           background-color: var(--background-color);
           color: var(--on-background-color);
           display: flex;
+          flex-direction: column;
         }
 
         .wrapper {
@@ -27,6 +28,7 @@ export class Page extends LitElement {
 
   render() {
     return html`<main class="page">
+      <slot name="header"></slot>
       <div class="wrapper"><slot></slot></div>
     </main>`
   }
