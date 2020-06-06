@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property, PropertyValues, query } from 'lit-element'
+import { css, customElement, html, LitElement, property, PropertyValues, query } from 'lit-element'
 import { IRoutingInfo, RouterSlot } from 'router-slot'
 import { general } from './core/styles/general'
 import { HomePage } from './features/home/home.page'
@@ -23,7 +23,16 @@ export class Auzooa extends LitElement {
   private currentTitle = ''
 
   static get styles() {
-    return [general]
+    return [
+      general,
+      css`
+        router-slot {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      `
+    ]
   }
 
   connectedCallback() {

@@ -11,16 +11,17 @@ export class Page extends LitElement {
           width: 100%;
           background-color: var(--background-color);
           color: var(--on-background-color);
+          height: 100vh;
           display: flex;
           flex-direction: column;
         }
 
         .wrapper {
-          flex: 1;
-          min-height: 100vh;
           padding: var(--m);
           margin: 0 auto;
           max-width: 40rem;
+          width: 100%;
+          height: 100%;
         }
       `
     ]
