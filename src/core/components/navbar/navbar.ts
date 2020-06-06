@@ -1,5 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
-import { general } from '../../styles/general'
+import { general } from '../../../styles/general'
 import { IconName } from '../icon/icon-name'
 import { inject } from 'inversify-props'
 import { TYPES } from '../../../types'

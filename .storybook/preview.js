@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { configure, addParameters } from '@storybook/web-components'
-import '../src/core/styles/base.css'
-import '../src/core/styles/theme.css'
+import '../src/styles/base.css'
+import '../src/styles/theme.css'
 
 addParameters({
   docs: {

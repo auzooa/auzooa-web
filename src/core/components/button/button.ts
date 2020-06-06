@@ -1,5 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
-import { general } from '../../styles/general'
+import { general } from '../../../styles/general'
 import { classMap } from 'lit-html/directives/class-map'
 
 @customElement('app-button')

@@ -1,6 +1,6 @@
 import 'router-slot'
 import './container'
 import './core/components'
-import './core/styles/theme.css'
-import './core/styles/base.css'
+import './styles/theme.css'
+import './styles/base.css'
 import './auzooa'

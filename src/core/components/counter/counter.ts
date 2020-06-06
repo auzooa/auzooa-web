@@ -1,5 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
-import { general } from '../../styles/general'
+import { general } from '../../../styles/general'
 import { subscribe } from '../../subscribe'
 import { inject } from '../../types/inject'
 import { TYPES } from '../../../types'

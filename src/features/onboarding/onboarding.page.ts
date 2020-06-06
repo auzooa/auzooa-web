@@ -3,7 +3,7 @@ import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { subscribe } from '../../core/subscribe'
-import { general } from '../../core/styles/general'
+import { general } from '../../styles/general'
 
 @customElement('app-onboarding')
 export class OnboardingPage extends LitElement {

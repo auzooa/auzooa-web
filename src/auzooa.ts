@@ -1,6 +1,6 @@
 import { css, customElement, html, LitElement, property, PropertyValues, query } from 'lit-element'
 import { IRoutingInfo, RouterSlot } from 'router-slot'
-import { general } from './core/styles/general'
+import { general } from './styles/general'
 import { HomePage } from './features/home/home.page'
 import { inject } from './core/types/inject'
 import { TYPES } from './types'

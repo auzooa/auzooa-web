@@ -6,6 +6,7 @@ export const es: Translations = new Map<keyof TranslationIdentifiers, string>([
   ['_seconds', 'segundos'],
   ['_back', 'Ir atrás'],
   ['_options', 'Opciones'],
+  ['home_newChat', 'O crea un chat nuevo'],
   ['onboarding_title', '¿Qué es auzooa?'],
   [
     'onboarding_description',
