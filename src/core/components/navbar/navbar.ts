@@ -11,6 +11,9 @@ export class Navbar extends LitElement {
   @property({ type: String })
   title!: string
 
+  @property({ type: String })
+  subtitle!: string
+
   @inject(TYPES.TRANSLATION)
   translation!: Translation
 
@@ -48,6 +51,19 @@ export class Navbar extends LitElement {
           padding: 0;
           color: var(--on-secondary-color);
         }
+
+        .text {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .text > * {
+          margin: 0;
+        }
+
+        .text small {
+          line-height: 0.7;
+        }
       `
     ]
   }
@@ -60,7 +76,10 @@ export class Navbar extends LitElement {
           .alt="${subscribe(this.translation('_back'))}"
         ></app-icon
       ></a>
-      <p>${this.title ?? ''}</p>
+      <div class="text">
+        <strong>${this.title ?? ''}</strong>
+        ${this.subtitle !== undefined ? html`<small>${this.subtitle}</small>` : null}
+      </div>
       <button>
         <app-icon
           .name="${IconName.MEATBALLS}"

@@ -1,12 +1,15 @@
 import { css, customElement, html, LitElement, property, PropertyValues, query } from 'lit-element'
-import { IRoutingInfo, RouterSlot } from 'router-slot'
+import { RouterSlot } from 'router-slot'
 import { general } from './styles/general'
-import { HomePage } from './features/home/home.page'
+import { HomePage } from './features/home/index'
 import { inject } from './core/types/inject'
 import { TYPES } from './types'
 import { IsUserFirstVisitUseCase } from './features/is-user-first-visit-use-case'
 import { filter, switchMapTo, tap } from 'rxjs/operators'
 import { SetUserFirstVisitUseCase } from './features/set-user-first-visit-use-case'
+import { AppPage } from './core/components/app-page'
+import { EMPTY, Observable } from 'rxjs'
+import { subscribe } from './core/subscribe'
 
 @customElement('app-auzooa')
 export class Auzooa extends LitElement {
@@ -19,8 +22,11 @@ export class Auzooa extends LitElement {
   @inject(TYPES.SET_USER_FIRST_VISIT_USE_CASE)
   readonly setUserFirstVisitUseCase!: SetUserFirstVisitUseCase
 
-  @property({ type: String })
-  private currentTitle = ''
+  @property({ type: Object })
+  private currentTitle: Observable<string> = EMPTY
+
+  @property({ type: Object })
+  private currentSubtitle: Observable<string> | undefined = undefined
 
   static get styles() {
     return [
@@ -57,10 +63,19 @@ export class Auzooa extends LitElement {
         component: () => import('./features/onboarding/index')
       },
       {
+        path: '/new-chat',
+        component: () => import('./features/new-chat/index'),
+        setup: (component: AppPage) => {
+          this.currentTitle = component.name
+          this.currentSubtitle = component.subtitle
+        }
+      },
+      {
         path: '/',
         component: HomePage,
-        setup: (component, _info: IRoutingInfo) => {
-          this.currentTitle = component.title
+        setup: (component: AppPage) => {
+          this.currentTitle = component.name
+          this.currentSubtitle = component.subtitle
         }
       },
       {
@@ -72,7 +87,11 @@ export class Auzooa extends LitElement {
 
   render() {
     return html`<app-page>
-      <app-navbar slot="header" .title="${this.currentTitle}"></app-navbar>
+      <app-navbar
+        slot="header"
+        .title="${subscribe(this.currentTitle)}"
+        .subtitle="${subscribe(this.currentSubtitle ?? EMPTY)}"
+      ></app-navbar>
       <router-slot></router-slot>
     </app-page>`
   }

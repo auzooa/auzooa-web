@@ -1,4 +1,6 @@
+import { Observable } from 'rxjs'
+
 export interface AppPage {
-  title: string
-  subtitle?: string
+  name: Observable<string>
+  subtitle?: Observable<string>
 }
