@@ -71,6 +71,14 @@ export class Auzooa extends LitElement {
         }
       },
       {
+        path: '/chats/:id',
+        component: () => import('./features/chat/index'),
+        setup: (component: AppPage) => {
+          this.currentTitle = component.name
+          this.currentSubtitle = component.subtitle
+        }
+      },
+      {
         path: '/',
         component: HomePage,
         setup: (component: AppPage) => {
