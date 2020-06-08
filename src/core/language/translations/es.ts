@@ -15,5 +15,10 @@ export const es: Translations = new Map<keyof TranslationIdentifiers, string>([
   [
     'onboarding_description',
     'Una herramienta que te posibilitará conectar con tus vecinos y vecinas.'
-  ]
+  ],
+  [
+    'chat_instruction',
+    '¡Bien hecho! Acabas de crear el muro de la escalera. El código es el siguiente:'
+  ],
+  ['chat_newMessage', 'Escribe un mensaje']
 ])

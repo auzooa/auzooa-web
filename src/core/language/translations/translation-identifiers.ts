@@ -10,4 +10,6 @@ export interface TranslationIdentifiers {
   newChat_subjectByline: string
   onboarding_title: string
   onboarding_description: string
+  chat_instruction: string
+  chat_newMessage: string
 }

@@ -59,6 +59,10 @@ export class NewChatPage extends LitElement implements AppPage {
     ]
   }
 
+  createWall() {
+    history.pushState(null, '', '/chats/1')
+  }
+
   render() {
     return html`<div class="wrapper">
       <div class="form">
@@ -70,7 +74,9 @@ export class NewChatPage extends LitElement implements AppPage {
         ></app-input-text>
         <small class="byline">${subscribe(this.translation('newChat_subjectByline'))}</small>
       </div>
-      <app-button round><app-icon .name="${IconName.DONE}"></app-icon></app-button>
+      <app-button round @click="${this.createWall}"
+        ><app-icon .name="${IconName.DONE}"></app-icon
+      ></app-button>
     </div> `
   }
 }

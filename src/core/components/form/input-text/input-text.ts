@@ -20,6 +20,8 @@ export class InputText extends LitElement {
 
         input {
           border-radius: 0.4rem;
+          color: var(--input-text-color, var(--background-color));
+          background-color: var(--input-text-background-color, var(--on-background-color));
           border: none;
           width: 100%;
           padding: var(--m);

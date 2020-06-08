@@ -12,5 +12,7 @@ export const en: Translations = new Map<keyof TranslationIdentifiers, string>([
   ['newChat_subject', 'Write the subject here...'],
   ['newChat_subjectByline', 'Add a subject to the wall'],
   ['onboarding_title', 'What is auzooa?'],
-  ['onboarding_description', 'A tool that will allow you to connect with your neighbours.']
+  ['onboarding_description', 'A tool that will allow you to connect with your neighbours.'],
+  ['chat_instruction', 'Good job! You just created the stairs feed. The code is the following:'],
+  ['chat_newMessage', 'Write a message']
 ])
