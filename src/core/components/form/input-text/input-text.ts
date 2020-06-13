@@ -33,7 +33,7 @@ export class InputText extends LitElement {
       .placeholder="${this.label}"
       .value="${this.value}"
       @input="${(event: InputEvent) =>
-        this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
+        this.dispatchEvent(new AppEvent('on-input', (event.target as HTMLInputElement).value))}"
     />`
   }
 }

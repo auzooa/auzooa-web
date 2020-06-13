@@ -6,16 +6,21 @@ import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { IconName } from '../../core/components/icon/icon-name'
 import { subscribe } from '../../core/subscribe'
+import { WallRepository } from './wall-repository'
+import { AppEvent } from '../../core/app-event'
 
-@customElement('app-new-chat')
-export class NewChatPage extends LitElement implements AppPage {
+@customElement('app-new-wall')
+export class NewWallPage extends LitElement implements AppPage {
   @inject(TYPES.TRANSLATION)
   translation!: Translation
+
+  @inject(TYPES.WALL_REPOSITORY)
+  wallRepository!: WallRepository
 
   name = this.translation('newChat_name')
   subtitle = this.translation('newChat_subtitle')
 
-  subject = ''
+  wallName = ''
 
   static get styles() {
     return [
@@ -59,18 +64,26 @@ export class NewChatPage extends LitElement implements AppPage {
     ]
   }
 
+  private createWall() {
+    return this.wallRepository.create(this.wallName).toPromise()
+  }
+
   render() {
     return html`<div class="wrapper">
       <div class="form">
         <app-stairs></app-stairs>
         <app-input-text
-          .value="${this.subject}"
+          .value="${this.wallName}"
           .label="${subscribe(this.translation('newChat_subject'))}"
-          @change="${(value: string) => (this.subject = value)}"
+          @on-input="${(value: AppEvent<string>) => {
+            this.wallName = value.detail
+          }}"
         ></app-input-text>
         <small class="byline">${subscribe(this.translation('newChat_subjectByline'))}</small>
       </div>
-      <app-button round><app-icon .name="${IconName.DONE}"></app-icon></app-button>
+      <app-button round @click="${this.createWall}"
+        ><app-icon .name="${IconName.DONE}"></app-icon
+      ></app-button>
     </div> `
   }
 }

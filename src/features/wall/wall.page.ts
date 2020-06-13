@@ -5,8 +5,8 @@ import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 
-@customElement('app-chat')
-export class ChatPage extends LitElement implements AppPage {
+@customElement('app-wall')
+export class WallPage extends LitElement implements AppPage {
   @inject(TYPES.TRANSLATION)
   translation!: Translation
 

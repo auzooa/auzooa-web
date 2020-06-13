@@ -64,7 +64,7 @@ export class Auzooa extends LitElement {
       },
       {
         path: '/new-chat',
-        component: () => import('./features/new-chat/index'),
+        component: () => import('./features/new-wall/index'),
         setup: (component: AppPage) => {
           this.currentTitle = component.name
           this.currentSubtitle = component.subtitle
@@ -72,7 +72,7 @@ export class Auzooa extends LitElement {
       },
       {
         path: '/chats/:id',
-        component: () => import('./features/chat/index'),
+        component: () => import('./features/wall/index'),
         setup: (component: AppPage) => {
           this.currentTitle = component.name
           this.currentSubtitle = component.subtitle
