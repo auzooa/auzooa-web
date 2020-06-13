@@ -30,9 +30,8 @@ export class WallFirestoreRepository implements WallRepository {
   }
 
   find(id: Id): Observable<Wall> {
-    return this.rxFire.doc(this.walls.doc(id)).pipe(
-      tap(console.warn),
-      switchMap(x => of((x.data()! as unknown) as Wall))
-    )
+    return this.rxFire
+      .doc(this.walls.doc(id))
+      .pipe(switchMap(x => of((x.data()! as unknown) as Wall)))
   }
 }
