@@ -63,34 +63,33 @@ export class Auzooa extends LitElement {
         component: () => import('./features/onboarding/index')
       },
       {
-        path: '/new-chat',
-        component: () => import('./features/new-chat/index'),
-        setup: (component: AppPage) => {
-          this.currentTitle = component.name
-          this.currentSubtitle = component.subtitle
-        }
+        path: '/new-wall',
+        component: () => import('./features/new-wall/index'),
+        setup: this.getSetup()
       },
       {
-        path: '/chats/:id',
-        component: () => import('./features/chat/index'),
-        setup: (component: AppPage) => {
-          this.currentTitle = component.name
-          this.currentSubtitle = component.subtitle
-        }
+        path: '/walls/:id',
+        component: () => import('./features/wall/index'),
+        setup: this.getSetup()
       },
       {
         path: '/',
         component: HomePage,
-        setup: (component: AppPage) => {
-          this.currentTitle = component.name
-          this.currentSubtitle = component.subtitle
-        }
+        setup: this.getSetup()
       },
       {
         path: '**',
         redirectTo: '/'
       }
     ])
+  }
+
+  private getSetup(): (component: HTMLElement) => void {
+    const setup = (component: AppPage) => {
+      this.currentTitle = component.name
+      this.currentSubtitle = component.subtitle
+    }
+    return (setup as unknown) as (component: HTMLElement) => void
   }
 
   render() {

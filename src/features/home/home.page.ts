@@ -43,7 +43,7 @@ export class HomePage extends LitElement implements AppPage {
   }
 
   goToNewChat() {
-    history.pushState(null, '', '/new-chat')
+    history.pushState(null, '', '/new-wall')
   }
 
   render() {
