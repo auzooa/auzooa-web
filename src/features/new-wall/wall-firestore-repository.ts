@@ -8,6 +8,7 @@ import { Firebase } from '../../core/firebase'
 import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import * as firebase from 'firebase'
+import { Wall } from './wall'
 
 @injectable()
 export class WallFirestoreRepository implements WallRepository {
@@ -25,6 +26,13 @@ export class WallFirestoreRepository implements WallRepository {
       take(1),
       tap(document => document.ref.set({ name })),
       switchMap(document => of(document.id))
+    )
+  }
+
+  find(id: Id): Observable<Wall> {
+    return this.rxFire.doc(this.walls.doc(id)).pipe(
+      tap(console.warn),
+      switchMap(x => of((x.data()! as unknown) as Wall))
     )
   }
 }
