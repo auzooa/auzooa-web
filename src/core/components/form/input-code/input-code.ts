@@ -11,15 +11,10 @@ export class InputCode extends LitElement {
     return [
       general,
       css`
-        :host {
-          width: 100%;
-        }
-
         input {
           border-radius: 4px;
           border: none;
           margin-right: var(--xs);
-
           color: var(--input-text-color, var(--background-color));
           background-color: var(--input-text-background-color, var(--on-background-color));
           max-width: var(--m);
