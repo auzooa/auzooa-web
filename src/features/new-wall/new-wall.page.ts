@@ -64,8 +64,9 @@ export class NewWallPage extends LitElement implements AppPage {
     ]
   }
 
-  private createWall() {
-    return this.wallRepository.create(this.wallName).toPromise()
+  private async createWall() {
+    const id = await this.wallRepository.create(this.wallName).toPromise()
+    history.pushState(null, '', `/walls/${id}`)
   }
 
   render() {
