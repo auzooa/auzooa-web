@@ -6,21 +6,21 @@ import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { IconName } from '../../core/components/icon/icon-name'
 import { subscribe } from '../../core/subscribe'
-import { WallRepository } from './wall-repository'
+import { StairsRepository } from './stairs-repository'
 import { AppEvent } from '../../core/app-event'
 
-@customElement('app-new-wall')
-export class NewWallPage extends LitElement implements AppPage {
+@customElement('app-new-stair')
+export class NewStairPage extends LitElement implements AppPage {
   @inject(TYPES.TRANSLATION)
   translation!: Translation
 
-  @inject(TYPES.WALL_REPOSITORY)
-  wallRepository!: WallRepository
+  @inject(TYPES.STAIR_REPOSITORY)
+  stairRepository!: StairsRepository
 
   name = this.translation('newChat_name')
   subtitle = this.translation('newChat_subtitle')
 
-  wallName = ''
+  stairName = ''
 
   static get styles() {
     return [
@@ -64,9 +64,9 @@ export class NewWallPage extends LitElement implements AppPage {
     ]
   }
 
-  private async createWall() {
-    const id = await this.wallRepository.create(this.wallName).toPromise()
-    history.pushState(null, '', `/walls/${id}`)
+  private async createStair() {
+    const id = await this.stairRepository.create(this.stairName).toPromise()
+    history.pushState(null, '', `/stairs/${id}`)
   }
 
   render() {
@@ -74,15 +74,15 @@ export class NewWallPage extends LitElement implements AppPage {
       <div class="form">
         <app-stairs></app-stairs>
         <app-input-text
-          .value="${this.wallName}"
+          .value="${this.stairName}"
           .label="${subscribe(this.translation('newChat_subject'))}"
           @on-input="${(value: AppEvent<string>) => {
-            this.wallName = value.detail
+            this.stairName = value.detail
           }}"
         ></app-input-text>
         <small class="byline">${subscribe(this.translation('newChat_subjectByline'))}</small>
       </div>
-      <app-button round @click="${this.createWall}"
+      <app-button round @click="${this.createStair}"
         ><app-icon .name="${IconName.DONE}"></app-icon
       ></app-button>
     </div> `

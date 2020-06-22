@@ -63,13 +63,13 @@ export class Auzooa extends LitElement {
         component: () => import('./features/onboarding/index')
       },
       {
-        path: '/new-wall',
-        component: () => import('./features/new-wall/index'),
+        path: '/new-stair',
+        component: () => import('./features/new-stair/index'),
         setup: this.getSetup()
       },
       {
-        path: '/walls/:id',
-        component: () => import('./features/wall/index'),
+        path: '/stairs/:id',
+        component: () => import('./features/stair/index'),
         setup: this.getSetup()
       },
       {

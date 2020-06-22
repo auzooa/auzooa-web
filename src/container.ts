@@ -8,10 +8,10 @@ import { Store } from './core/store/store'
 import { Translation } from './core/language/translation'
 import { IsUserFirstVisitUseCase } from './features/is-user-first-visit-use-case'
 import { SetUserFirstVisitUseCase } from './features/set-user-first-visit-use-case'
-import { WallRepository } from './features/new-wall/wall-repository'
-import { WallFirestoreRepository } from './features/new-wall/wall-firestore-repository'
 import * as RxFire from 'rxfire/firestore'
 import { app } from './core/firestore'
+import { StairsRepository } from './features/new-stair/stairs-repository'
+import { StairFirestoreRepository } from './features/new-stair/stair-firestore-repository'
 
 container
   .bind<TranslationService>(TYPES.TRANSLATION_SERVICE)
@@ -36,7 +36,10 @@ container
   .to(SetUserFirstVisitUseCase)
   .inSingletonScope()
 container.bind<Store>(TYPES.STORE).to(Store)
-container.bind<WallRepository>(TYPES.WALL_REPOSITORY).to(WallFirestoreRepository).inSingletonScope()
+container
+  .bind<StairsRepository>(TYPES.STAIR_REPOSITORY)
+  .to(StairFirestoreRepository)
+  .inSingletonScope()
 container.bind(TYPES.RX_FIRE).toConstantValue(RxFire)
 container.bind(TYPES.FIREBASE).toConstantValue(app)
 

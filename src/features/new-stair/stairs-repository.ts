@@ -1,8 +1,8 @@
 import { Id } from '../../core/types/id'
 import { Observable } from 'rxjs'
-import { Wall } from './wall'
+import { Stair } from './stair'
 
-export interface WallRepository {
+export interface StairsRepository {
   create(name: string): Observable<Id>
-  find(id: Id): Observable<Wall>
+  find(id: Id): Observable<Stair>
 }

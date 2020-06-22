@@ -1,16 +1,16 @@
-import { WallFirestoreRepository } from './wall-firestore-repository'
 import { anything, deepEqual, instance, mock, verify, when } from 'ts-mockito'
 import { Firebase } from '../../core/firebase'
 import { RxFire } from '../../core/rx-fire'
 import * as firebase from 'firebase'
 import { of } from 'rxjs'
 import { take } from 'rxjs/operators'
+import { StairFirestoreRepository } from './stair-firestore-repository'
 
-describe('WallFirestoreRepository', () => {
-  it('should create a wall', async () => {
-    const { wallFirestoreRepository, documentReference } = setup()
+describe('StairFirestoreRepository', () => {
+  it('should create a stair', async () => {
+    const { stairFirestoreRepository, documentReference } = setup()
 
-    const actual = await wallFirestoreRepository.create('bar').pipe(take(1)).toPromise()
+    const actual = await stairFirestoreRepository.create('bar').pipe(take(1)).toPromise()
 
     expect(actual).toBe('foo')
     verify(documentReference.set(deepEqual({ name: 'bar' }))).once()
@@ -23,7 +23,7 @@ function setup() {
   const collectionReference = mock<firebase.firestore.CollectionReference>()
   const documentReference = mock<firebase.firestore.DocumentReference>()
 
-  when(firestore.collection('walls')).thenReturn(instance(collectionReference))
+  when(firestore.collection('stairs')).thenReturn(instance(collectionReference))
   when(collectionReference.doc()).thenReturn(instance(documentReference))
   when(firebase.firestore()).thenReturn(instance(firestore))
 
@@ -37,6 +37,6 @@ function setup() {
     firebase,
     rxFire,
     documentReference,
-    wallFirestoreRepository: new WallFirestoreRepository(instance(firebase), instance(rxFire))
+    stairFirestoreRepository: new StairFirestoreRepository(instance(firebase), instance(rxFire))
   }
 }

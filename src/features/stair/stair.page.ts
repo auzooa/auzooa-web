@@ -5,21 +5,21 @@ import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
-import { WallRepository } from '../new-wall/wall-repository'
+import { StairsRepository } from '../new-stair/stairs-repository'
 import { map } from 'rxjs/operators'
 import { Observable, of } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
 
-@customElement('app-wall')
-export class WallPage extends LitElement implements AppPage {
-  @inject(TYPES.WALL_REPOSITORY)
-  wallRepository!: WallRepository
+@customElement('app-stair')
+export class StairPage extends LitElement implements AppPage {
+  @inject(TYPES.STAIR_REPOSITORY)
+  stairRepository!: StairsRepository
 
   name: Observable<string> = of('')
 
   @inject(TYPES.TRANSLATION)
   translation!: Translation
-  private wallId: string | undefined
+  private stairId: string | undefined
 
   static get styles() {
     return [
@@ -63,13 +63,13 @@ export class WallPage extends LitElement implements AppPage {
   }
 
   private setName() {
-    if (this.wallId !== undefined) {
-      this.name = this.wallRepository.find(this.wallId).pipe(map(x => x.name))
+    if (this.stairId !== undefined) {
+      this.name = this.stairRepository.find(this.stairId).pipe(map(x => x.name))
     }
   }
 
   render() {
-    this.wallId = queryParentRouterSlot(this)?.match?.params.id
+    this.stairId = queryParentRouterSlot(this)?.match?.params.id
     this.setName()
     return html`<div>${subscribe(this.name)}</div>
       <div class="wrapper">
