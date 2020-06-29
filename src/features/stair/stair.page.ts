@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement } from 'lit-element'
+import { css, customElement, html, LitElement, property } from 'lit-element'
 import { general } from '../../styles/general'
 import { AppPage } from '../../core/components/app-page'
 import { inject } from '../../core/types/inject'
@@ -6,20 +6,27 @@ import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
 import { StairsRepository } from '../new-stair/stairs-repository'
-import { map } from 'rxjs/operators'
+import { take } from 'rxjs/operators'
 import { Observable, of } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
+import { Code } from '../../core/types/code'
 
 @customElement('app-stair')
 export class StairPage extends LitElement implements AppPage {
   @inject(TYPES.STAIR_REPOSITORY)
-  stairRepository!: StairsRepository
-
-  name: Observable<string> = of('')
+  private readonly stairRepository!: StairsRepository
 
   @inject(TYPES.TRANSLATION)
-  translation!: Translation
+  private readonly translation!: Translation
+
+  @property({ type: String })
+  private code: Code = ''
+
+  @property({ type: Object })
+  name: Observable<string> = of('')
+
   private stairId: string | undefined
+  private hasLoaded = false
 
   static get styles() {
     return [
@@ -62,29 +69,31 @@ export class StairPage extends LitElement implements AppPage {
     ]
   }
 
-  private setName() {
-    if (this.stairId !== undefined) {
-      this.name = this.stairRepository.find(this.stairId).pipe(map(x => x.name))
+  private async setName() {
+    if (this.stairId !== undefined && !this.hasLoaded) {
+      const stair = await this.stairRepository.find(this.stairId).pipe(take(1)).toPromise()
+      this.name = of(stair.name)
+      this.code = stair.code
+      this.hasLoaded = true
     }
   }
 
   render() {
     this.stairId = queryParentRouterSlot(this)?.match?.params.id
     this.setName()
-    return html`<div>${subscribe(this.name)}</div>
-      <div class="wrapper">
-        <header class="instructions">
-          <app-neighbours></app-neighbours>
-          <div class="user-message">
-            ${subscribe(this.translation('chat_instruction'))}
-          </div>
-          <app-input-code></app-input-code>
-        </header>
-        <app-input-text
-          class="write-message"
-          .label="${subscribe(this.translation('chat_newMessage'))}"
-          value=""
-        ></app-input-text>
-      </div>`
+    return html` <div class="wrapper">
+      <header class="instructions">
+        <app-neighbours></app-neighbours>
+        <div class="user-message">
+          ${subscribe(this.translation('chat_instruction'))}
+        </div>
+        <app-input-code .readonly="${true}" .value="${this.code}"></app-input-code>
+      </header>
+      <app-input-text
+        class="write-message"
+        .label="${subscribe(this.translation('chat_newMessage'))}"
+        value=""
+      ></app-input-text>
+    </div>`
   }
 }

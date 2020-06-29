@@ -1,11 +1,15 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { AppEvent } from '../../../app-event'
 import { general } from '../../../../styles/general'
+import { range } from '../../../utils/range'
 
 @customElement('app-input-code')
 export class InputCode extends LitElement {
   @property({ type: String })
-  value: string = ''
+  value = ''
+
+  @property({ type: Boolean })
+  readonly = false
 
   static get styles() {
     return [
@@ -17,8 +21,9 @@ export class InputCode extends LitElement {
           margin-right: var(--xs);
           color: var(--input-text-color, var(--background-color));
           background-color: var(--input-text-background-color, var(--on-background-color));
-          max-width: var(--m);
-          padding: var(--m);
+          max-width: 40px;
+          padding: var(--m) 0;
+          text-align: center;
         }
         input:not(:first-child) {
           margin-left: var(--xs);
@@ -32,37 +37,26 @@ export class InputCode extends LitElement {
   }
 
   render() {
-    return html`<input
-        .value="${this.value}"
-        @input="${(event: InputEvent) =>
-          this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
-      />
-      <input
-        .value="${this.value}"
-        @input="${(event: InputEvent) =>
-          this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
-      />
-      <input
-        .value="${this.value}"
-        @input="${(event: InputEvent) =>
-          this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
-      />
+    return html`
+      ${range(3).map(
+        i => html`<input
+          .value="${this.value[i]}"
+          ?disabled="${this.readonly}"
+          @input="${(event: InputEvent) =>
+            this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
+        />`
+      )}
 
       <div class="dash">-</div>
-      <input
-        .value="${this.value}"
-        @input="${(event: InputEvent) =>
-          this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
-      />
-      <input
-        .value="${this.value}"
-        @input="${(event: InputEvent) =>
-          this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
-      />
-      <input
-        .value="${this.value}"
-        @input="${(event: InputEvent) =>
-          this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
-      /> `
+
+      ${range(3, 6).map(
+        i => html`<input
+          .value="${this.value[i]}"
+          ?disabled="${this.readonly}"
+          @input="${(event: InputEvent) =>
+            this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
+        />`
+      )}
+    `
   }
 }
