@@ -12,4 +12,7 @@ export interface TranslationIdentifiers {
   onboarding_description: string
   chat_instruction: string
   chat_newMessage: string
+  chat_template: string
+  chat_downloadTemplate: string
+  chat_nextSteps: string
 }

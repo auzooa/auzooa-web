@@ -54,9 +54,8 @@ export class StairPage extends LitElement implements AppPage {
           margin: var(--m) 0;
         }
 
-        .user-message {
-          background-color: var(--secondary-color);
-          color: white;
+        .message {
+          margin-bottom: var(--m);
         }
 
         .write-message {
@@ -84,10 +83,19 @@ export class StairPage extends LitElement implements AppPage {
     return html` <div class="wrapper">
       <header class="instructions">
         <app-neighbours></app-neighbours>
-        <div class="user-message">
+        <app-message class="message">
           ${subscribe(this.translation('chat_instruction'))}
-        </div>
+        </app-message>
         <app-input-code .readonly="${true}" .value="${this.code}"></app-input-code>
+        <app-message class="message">
+          ${subscribe(this.translation('chat_template'))}
+        </app-message>
+        <app-button class="message"
+          >${subscribe(this.translation('chat_downloadTemplate'))}</app-button
+        >
+        <app-message class="message">
+          ${subscribe(this.translation('chat_nextSteps'))}
+        </app-message>
       </header>
       <app-input-text
         class="write-message"

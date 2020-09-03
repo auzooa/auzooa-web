@@ -20,5 +20,14 @@ export const es: Translations = new Map<keyof TranslationIdentifiers, string>([
     'chat_instruction',
     '¡Bien hecho! Acabas de crear el muro de la escalera. El código es el siguiente:'
   ],
-  ['chat_newMessage', 'Escribe un mensaje']
+  ['chat_newMessage', 'Escribe un mensaje'],
+  [
+    'chat_template',
+    'Ahora, el siguiente paso, es darlo a conocer. Para ello, descarga la plantilla.'
+  ],
+  ['chat_downloadTemplate', 'Descargar plantilla'],
+  [
+    'chat_nextSteps',
+    '¡Perfecto! Ahora solo queda imprimirlo y colocarlo en un lugar visible de la escalera. Te recomendamos que lo hagas en la planta baja, para que sea visible por todos tus vecinos y vecinas.'
+  ]
 ])

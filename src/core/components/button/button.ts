@@ -46,7 +46,7 @@ export class Button extends LitElement {
   }
 
   render() {
-    return html`<button class="button" class="${classMap({ round: this.round })}">
+    return html`<button class="${classMap({ button: true, round: this.round })}">
       <slot></slot>
     </button>`
   }
