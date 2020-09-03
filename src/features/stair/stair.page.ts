@@ -7,7 +7,7 @@ import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
 import { StairsRepository } from '../new-stair/stairs-repository'
 import { take } from 'rxjs/operators'
-import { Observable, of } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
 import { Code } from '../../core/types/code'
 
@@ -22,8 +22,10 @@ export class StairPage extends LitElement implements AppPage {
   @property({ type: String })
   private code: Code = ''
 
+  nameBehaviourSubject = new BehaviorSubject('')
+
   @property({ type: Object })
-  name: Observable<string> = of('')
+  name: Observable<string> = this.nameBehaviourSubject.asObservable()
 
   private stairId: string | undefined
   private hasLoaded = false
@@ -73,7 +75,7 @@ export class StairPage extends LitElement implements AppPage {
   private async setName() {
     if (this.stairId !== undefined && !this.hasLoaded) {
       const stair = await this.stairRepository.find(this.stairId).pipe(take(1)).toPromise()
-      this.name = of(stair.name)
+      this.nameBehaviourSubject.next(stair.name)
       this.code = stair.code
       this.hasLoaded = true
     }
