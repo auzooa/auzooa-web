@@ -1,3 +1,1 @@
-module.exports = {
-  addons: ['@storybook/preset-typescript']
-}
+module.exports = {}
