@@ -36,6 +36,7 @@ export class Auzooa extends LitElement {
           display: block;
           width: 100%;
           height: 100%;
+          padding: var(--s);
         }
       `
     ]

@@ -17,11 +17,11 @@ export class Page extends LitElement {
         }
 
         .wrapper {
-          padding: var(--m);
           margin: 0 auto;
           max-width: 40rem;
           width: 100%;
           height: 100%;
+          overflow-y: scroll;
         }
       `
     ]
@@ -30,7 +30,9 @@ export class Page extends LitElement {
   render() {
     return html`<main class="page">
       <slot name="header"></slot>
-      <div class="wrapper"><slot></slot></div>
+      <div class="wrapper">
+        <slot></slot>
+      </div>
     </main>`
   }
 }

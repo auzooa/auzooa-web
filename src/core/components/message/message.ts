@@ -8,6 +8,7 @@ export class Message extends LitElement {
       general,
       css`
         .message {
+          padding: var(--s);
           background-color: var(--secondary-color);
           color: var(--on-secondary-color);
           border-radius: var(--xs);

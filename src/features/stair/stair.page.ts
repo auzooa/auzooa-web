@@ -48,20 +48,22 @@ export class StairPage extends LitElement implements AppPage {
           display: flex;
           flex-direction: column;
           align-items: center;
+          overflow-y: scroll;
         }
 
         app-neighbours {
-          margin: var(--m) 0;
+          margin-top: var(--s);
         }
 
         .message {
-          margin-bottom: var(--m);
+          margin: var(--m) 0;
         }
 
         .write-message {
           --input-text-background-color: var(--secondary-color);
           --input-text-color: white;
           display: flex;
+          margin-top: var(--s);
           border-radius: 5%;
         }
       `
@@ -90,9 +92,7 @@ export class StairPage extends LitElement implements AppPage {
         <app-message class="message">
           ${subscribe(this.translation('chat_template'))}
         </app-message>
-        <app-button class="message"
-          >${subscribe(this.translation('chat_downloadTemplate'))}</app-button
-        >
+        <app-button>${subscribe(this.translation('chat_downloadTemplate'))}</app-button>
         <app-message class="message">
           ${subscribe(this.translation('chat_nextSteps'))}
         </app-message>
