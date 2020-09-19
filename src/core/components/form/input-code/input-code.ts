@@ -40,7 +40,7 @@ export class InputCode extends LitElement {
     return html`
       ${range(3).map(
         i => html`<input
-          .value="${this.value[i]}"
+          .value="${this.value[i] ?? ''}"
           ?disabled="${this.readonly}"
           @input="${(event: InputEvent) =>
             this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"
@@ -51,7 +51,7 @@ export class InputCode extends LitElement {
 
       ${range(3, 6).map(
         i => html`<input
-          .value="${this.value[i]}"
+          .value="${this.value[i] ?? ''}"
           ?disabled="${this.readonly}"
           @input="${(event: InputEvent) =>
             this.dispatchEvent(new AppEvent((event.target as HTMLInputElement).value))}"

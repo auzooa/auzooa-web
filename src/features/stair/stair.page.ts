@@ -6,8 +6,8 @@ import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
 import { StairsRepository } from '../new-stair/stairs-repository'
-import { take } from 'rxjs/operators'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
+import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
 import { Code } from '../../core/types/code'
 
@@ -29,6 +29,7 @@ export class StairPage extends LitElement implements AppPage {
 
   private stairId: string | undefined
   private hasLoaded = false
+  private subscription!: Subscription
 
   static get styles() {
     return [
@@ -72,12 +73,23 @@ export class StairPage extends LitElement implements AppPage {
     ]
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.subscription.unsubscribe()
+  }
+
   private async setName() {
     if (this.stairId !== undefined && !this.hasLoaded) {
-      const stair = await this.stairRepository.find(this.stairId).pipe(take(1)).toPromise()
-      this.nameBehaviourSubject.next(stair.name)
-      this.code = stair.code
-      this.hasLoaded = true
+      this.subscription = this.stairRepository
+        .find(this.stairId)
+        .pipe(
+          tap(stair => {
+            this.nameBehaviourSubject.next(stair.name)
+            this.code = stair.code
+            this.hasLoaded = true
+          })
+        )
+        .subscribe()
     }
   }
 
@@ -91,9 +103,7 @@ export class StairPage extends LitElement implements AppPage {
           ${subscribe(this.translation('chat_instruction'))}
         </app-message>
         <app-input-code .readonly="${true}" .value="${this.code}"></app-input-code>
-        <app-message class="message">
-          ${subscribe(this.translation('chat_template'))}
-        </app-message>
+        <app-message class="message">${subscribe(this.translation('chat_template'))}</app-message>
         <app-button>${subscribe(this.translation('chat_downloadTemplate'))}</app-button>
         <app-message class="message">
           ${subscribe(this.translation('chat_nextSteps'))}
