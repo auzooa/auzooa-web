@@ -10,6 +10,7 @@ import { SetUserFirstVisitUseCase } from './features/set-user-first-visit-use-ca
 import { AppPage } from './core/components/app-page'
 import { EMPTY, Observable } from 'rxjs'
 import { subscribe } from './core/subscribe'
+import { container } from './container'
 
 @customElement('app-auzooa')
 export class Auzooa extends LitElement {
@@ -44,6 +45,7 @@ export class Auzooa extends LitElement {
 
   connectedCallback() {
     super.connectedCallback()
+    console.log(container.get(TYPES.IS_USER_FIRST_VISIT_USE_CASE))
     this.isUserFirstVisitUseCase
       .execute()
       .pipe(
