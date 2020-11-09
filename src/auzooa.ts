@@ -94,7 +94,7 @@ export class Auzooa extends LitElement {
   }
 
   render() {
-    return html`<app-page>
+    return html` <app-page>
       <app-navbar
         slot="header"
         .title="${subscribe(this.currentTitle)}"

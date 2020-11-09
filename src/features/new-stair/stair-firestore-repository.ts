@@ -7,7 +7,7 @@ import { injectable } from '../../core/types/injectable'
 import { Firebase } from '../../core/firebase'
 import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 import { Stair } from './stair'
 
 @injectable()

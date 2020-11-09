@@ -1,1 +1,3 @@
-export type Firebase = firebase.app.App
+import firebase from 'firebase'
+
+export type Firebase = typeof firebase

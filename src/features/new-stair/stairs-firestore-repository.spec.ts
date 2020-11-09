@@ -1,7 +1,7 @@
 import { anything, deepEqual, instance, mock, verify, when } from 'ts-mockito'
 import { Firebase } from '../../core/firebase'
 import { RxFire } from '../../core/rx-fire'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 import { of } from 'rxjs'
 import { take } from 'rxjs/operators'
 import { StairFirestoreRepository } from './stair-firestore-repository'
