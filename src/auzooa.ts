@@ -2,25 +2,23 @@ import { css, customElement, html, LitElement, property, PropertyValues, query }
 import { RouterSlot } from 'router-slot'
 import { general } from './styles/general'
 import { HomePage } from './features/home/index'
-import { inject } from './core/types/inject'
-import { TYPES } from './types'
 import { IsUserFirstVisitUseCase } from './features/is-user-first-visit-use-case'
 import { filter, switchMapTo, tap } from 'rxjs/operators'
 import { SetUserFirstVisitUseCase } from './features/set-user-first-visit-use-case'
 import { AppPage } from './core/components/app-page'
 import { EMPTY, Observable } from 'rxjs'
 import { subscribe } from './core/subscribe'
-import { container } from './container'
+import { resolve } from './core/types/resolve'
 
 @customElement('app-auzooa')
 export class Auzooa extends LitElement {
   @query('router-slot')
   readonly routerSlot!: RouterSlot
 
-  @inject(TYPES.IS_USER_FIRST_VISIT_USE_CASE)
+  @resolve()
   readonly isUserFirstVisitUseCase!: IsUserFirstVisitUseCase
 
-  @inject(TYPES.SET_USER_FIRST_VISIT_USE_CASE)
+  @resolve()
   readonly setUserFirstVisitUseCase!: SetUserFirstVisitUseCase
 
   @property({ type: Object })
@@ -45,17 +43,6 @@ export class Auzooa extends LitElement {
 
   connectedCallback() {
     super.connectedCallback()
-    console.log(container.get(TYPES.IS_USER_FIRST_VISIT_USE_CASE))
-    this.isUserFirstVisitUseCase
-      .execute()
-      .pipe(
-        filter(x => x),
-        tap(() => {
-          history.pushState(null, '', '/onboarding')
-        }),
-        switchMapTo(this.setUserFirstVisitUseCase.execute())
-      )
-      .toPromise()
   }
 
   firstUpdated(props: PropertyValues) {
@@ -102,6 +89,20 @@ export class Auzooa extends LitElement {
         .title="${subscribe(this.currentTitle)}"
         .subtitle="${subscribe(this.currentSubtitle ?? EMPTY)}"
       ></app-navbar>
+      <app-button
+        @click="${() =>
+          this.isUserFirstVisitUseCase
+            .execute()
+            .pipe(
+              filter(x => x),
+              tap(() => {
+                history.pushState(null, '', '/onboarding')
+              }),
+              switchMapTo(this.setUserFirstVisitUseCase.execute())
+            )
+            .toPromise()}"
+        >Click</app-button
+      >
       <router-slot></router-slot>
     </app-page>`
   }

@@ -1,10 +1,9 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { general } from '../../../styles/general'
 import { IconName } from '../icon/icon-name'
-import { inject } from 'inversify-props'
-import { TYPES } from '../../../types'
 import { Translation } from '../../language/translation'
 import { subscribe } from '../../subscribe'
+import { resolve } from '../../types/resolve'
 
 @customElement('app-navbar')
 export class Navbar extends LitElement {
@@ -14,7 +13,7 @@ export class Navbar extends LitElement {
   @property({ type: String })
   subtitle!: string
 
-  @inject(TYPES.TRANSLATION)
+  @resolve()
   translation!: Translation
 
   private back() {

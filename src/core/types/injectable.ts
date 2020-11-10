@@ -1,1 +1,1 @@
-export { injectable } from 'inversify-props'
+export { injectable } from 'tsyringe'

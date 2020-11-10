@@ -1,10 +1,10 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { general } from '../../../styles/general'
 import { subscribe } from '../../subscribe'
-import { inject } from '../../types/inject'
 import { TYPES } from '../../../types'
 import { Translation } from '../../language/translation'
 import { AppEvent } from '../../app-event'
+import { resolve } from '../../types/resolve'
 
 @customElement('app-counter')
 export class Counter extends LitElement {
@@ -14,7 +14,7 @@ export class Counter extends LitElement {
   @property({ type: Number })
   private interval = -1
 
-  @inject(TYPES.TRANSLATION)
+  @resolve(TYPES.TRANSLATION)
   translation!: Translation
 
   static get styles() {

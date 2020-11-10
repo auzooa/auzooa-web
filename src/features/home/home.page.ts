@@ -3,13 +3,13 @@ import { AppPage } from '../../core/components/app-page'
 import { general } from '../../styles/general'
 import { IconName } from '../../core/components/icon/icon-name'
 import { subscribe } from '../../core/subscribe'
-import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
+import { resolve } from '../../core/types/resolve'
 
 @customElement('app-home')
 export class HomePage extends LitElement implements AppPage {
-  @inject(TYPES.TRANSLATION)
+  @resolve(TYPES.TRANSLATION)
   translation!: Translation
 
   name = this.translation('_name')

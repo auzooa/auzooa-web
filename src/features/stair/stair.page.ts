@@ -1,7 +1,6 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { general } from '../../styles/general'
 import { AppPage } from '../../core/components/app-page'
-import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
@@ -10,13 +9,14 @@ import { tap } from 'rxjs/operators'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
 import { Code } from '../../core/types/code'
+import { resolve } from '../../core/types/resolve'
 
 @customElement('app-stair')
 export class StairPage extends LitElement implements AppPage {
-  @inject(TYPES.STAIR_REPOSITORY)
+  @resolve(TYPES.STAIR_REPOSITORY)
   private readonly stairRepository!: StairsRepository
 
-  @inject(TYPES.TRANSLATION)
+  @resolve(TYPES.TRANSLATION)
   private readonly translation!: Translation
 
   @property({ type: String })

@@ -1,20 +1,21 @@
 import { css, customElement, html, LitElement } from 'lit-element'
 import { general } from '../../styles/general'
 import { AppPage } from '../../core/components/app-page'
-import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { IconName } from '../../core/components/icon/icon-name'
 import { subscribe } from '../../core/subscribe'
 import { StairsRepository } from './stairs-repository'
 import { AppEvent } from '../../core/app-event'
+import { resolve } from '../../core/types/resolve'
 
 @customElement('app-new-stair')
 export class NewStairPage extends LitElement implements AppPage {
-  @inject(TYPES.TRANSLATION)
+  @resolve()
   translation!: Translation
 
-  @inject(TYPES.STAIR_REPOSITORY)
+  // TODO: Use use case
+  @resolve(TYPES.STAIR_REPOSITORY)
   stairRepository!: StairsRepository
 
   name = this.translation('newChat_name')

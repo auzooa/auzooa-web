@@ -16,7 +16,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": true,
     "inlineSourceMap": true,
     "inlineSources": true,
     "types": ["jest", "reflect-metadata", "node"],
