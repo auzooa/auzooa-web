@@ -43,6 +43,16 @@ export class Auzooa extends LitElement {
 
   connectedCallback() {
     super.connectedCallback()
+    this.isUserFirstVisitUseCase
+      .execute()
+      .pipe(
+        filter(x => x),
+        tap(() => {
+          history.pushState(null, '', '/onboarding')
+        }),
+        switchMapTo(this.setUserFirstVisitUseCase.execute())
+      )
+      .toPromise()
   }
 
   firstUpdated(props: PropertyValues) {
@@ -83,27 +93,14 @@ export class Auzooa extends LitElement {
   }
 
   render() {
-    return html` <app-page>
+    return html`<app-page>
       <app-navbar
         slot="header"
         .title="${subscribe(this.currentTitle)}"
         .subtitle="${subscribe(this.currentSubtitle ?? EMPTY)}"
-      ></app-navbar>
-      <app-button
-        @click="${() =>
-          this.isUserFirstVisitUseCase
-            .execute()
-            .pipe(
-              filter(x => x),
-              tap(() => {
-                history.pushState(null, '', '/onboarding')
-              }),
-              switchMapTo(this.setUserFirstVisitUseCase.execute())
-            )
-            .toPromise()}"
-        >Click</app-button
       >
-      <router-slot></router-slot>
+        <router-slot></router-slot>
+      </app-navbar>
     </app-page>`
   }
 }

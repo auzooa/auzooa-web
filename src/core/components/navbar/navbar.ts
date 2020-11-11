@@ -4,6 +4,7 @@ import { IconName } from '../icon/icon-name'
 import { Translation } from '../../language/translation'
 import { subscribe } from '../../subscribe'
 import { resolve } from '../../types/resolve'
+import { TYPES } from '../../../types'
 
 @customElement('app-navbar')
 export class Navbar extends LitElement {
@@ -13,7 +14,7 @@ export class Navbar extends LitElement {
   @property({ type: String })
   subtitle!: string
 
-  @resolve()
+  @resolve(TYPES.TRANSLATION)
   translation!: Translation
 
   private back() {

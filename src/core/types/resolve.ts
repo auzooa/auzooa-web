@@ -1,12 +1,16 @@
-import InjectionToken from 'tsyringe/dist/typings/providers/injection-token'
 import { container } from '../../container'
 
-export function resolve(type?: InjectionToken<any>): (target: any, name: string) => any {
+type constructor<T> = {
+  new (...args: any[]): T
+}
+
+type InjectionToken<T = any> = constructor<T> | string | symbol
+
+export function resolve(type?: InjectionToken): (target: any, name: string) => any {
   return (target: any, name: string): any => {
     const property = {
       get(): any {
         const metadata = Reflect.getMetadata('design:type', target, name)
-        console.log({ metadata })
         const paramType = type ?? metadata
         return container.resolve(paramType)
       }
