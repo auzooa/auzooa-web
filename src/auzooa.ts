@@ -99,8 +99,8 @@ export class Auzooa extends LitElement {
         .title="${subscribe(this.currentTitle)}"
         .subtitle="${subscribe(this.currentSubtitle ?? EMPTY)}"
       >
-        <router-slot></router-slot>
       </app-navbar>
+      <router-slot></router-slot>
     </app-page>`
   }
 }

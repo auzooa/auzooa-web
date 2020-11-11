@@ -11,7 +11,7 @@ import { resolve } from '../../core/types/resolve'
 
 @customElement('app-new-stair')
 export class NewStairPage extends LitElement implements AppPage {
-  @resolve()
+  @resolve(TYPES.TRANSLATION)
   translation!: Translation
 
   // TODO: Use use case
