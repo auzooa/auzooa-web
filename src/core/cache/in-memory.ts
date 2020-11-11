@@ -10,7 +10,7 @@ export const inMemory = (
   original: Function,
   _fnName: string,
   instance: unknown,
-  ttl: string
+  ttl: number
 ) => (...args: any[]) => {
   const key = createHash(JSON.stringify(args))
   const now = Date.now()
@@ -19,10 +19,10 @@ export const inMemory = (
     cache.set(key, { createdAt: now, returns: original.apply(instance, args) })
   }
 
-  if (isPromise(cache.get(key).returns)) {
-    cache
-      .get(key)
-      .returns.then(args => {
+  const existingResult = cache.get(key)!
+  if (isPromise(existingResult.returns)) {
+    existingResult.returns
+      .then(args => {
         if (Array.isArray(args) && args[0]) {
           cache.delete(key)
         }
@@ -30,9 +30,9 @@ export const inMemory = (
       .catch(() => cache.delete(key))
   }
 
-  if (now - cache.get(key).createdAt > ttl) {
+  if (now - existingResult.createdAt > ttl) {
     cache.delete(key)
   }
 
-  return cache.get(key) !== undefined ? cache.get(key).returns : original.apply(instance, args)
+  return cache.get(key) !== undefined ? existingResult.returns : original.apply(instance, args)
 }
