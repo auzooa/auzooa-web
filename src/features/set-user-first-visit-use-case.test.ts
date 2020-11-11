@@ -5,7 +5,7 @@ describe('SetUserFirstVisitUseCase', () => {
     const { setUserFirstVisitUseCase } = setup()
     jest.spyOn(window.localStorage.__proto__, 'setItem')
 
-    await setUserFirstVisitUseCase.execute().toPromise()
+    await setUserFirstVisitUseCase.internalExecute()
 
     expect(localStorage.setItem).toHaveBeenCalledWith('HAS_USER_VISITED', 'true')
   })

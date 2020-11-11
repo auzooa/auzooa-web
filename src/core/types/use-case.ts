@@ -1,5 +1,7 @@
-import { Observable } from 'rxjs'
+export abstract class UseCase<Result = void, Param = void> {
+  abstract internalExecute(param: Param): Promise<Result>
 
-export interface UseCase<Result = void, Param = void> {
-  execute(param: Param): Observable<Result>
+  execute(param: Param): Promise<Result> {
+    return this.internalExecute(param)
+  }
 }

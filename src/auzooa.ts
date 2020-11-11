@@ -3,7 +3,6 @@ import { RouterSlot } from 'router-slot'
 import { general } from './styles/general'
 import { HomePage } from './features/home/index'
 import { IsUserFirstVisitUseCase } from './features/is-user-first-visit-use-case'
-import { filter, switchMapTo, tap } from 'rxjs/operators'
 import { SetUserFirstVisitUseCase } from './features/set-user-first-visit-use-case'
 import { AppPage } from './core/components/app-page'
 import { EMPTY, Observable } from 'rxjs'
@@ -41,18 +40,14 @@ export class Auzooa extends LitElement {
     ]
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     super.connectedCallback()
-    this.isUserFirstVisitUseCase
-      .execute()
-      .pipe(
-        filter(x => x),
-        tap(() => {
-          history.pushState(null, '', '/onboarding')
-        }),
-        switchMapTo(this.setUserFirstVisitUseCase.execute())
-      )
-      .toPromise()
+    const isFirstVisit = await this.isUserFirstVisitUseCase.execute()
+
+    if (isFirstVisit) {
+      history.pushState(null, '', '/onboarding')
+      await this.setUserFirstVisitUseCase.execute()
+    }
   }
 
   firstUpdated(props: PropertyValues) {

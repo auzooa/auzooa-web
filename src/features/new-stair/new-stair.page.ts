@@ -16,7 +16,7 @@ export class NewStairPage extends LitElement implements AppPage {
 
   // TODO: Use use case
   @resolve(TYPES.STAIR_REPOSITORY)
-  stairRepository!: StairsRepository
+  stairsRepository!: StairsRepository
 
   name = this.translation('newChat_name')
   subtitle = this.translation('newChat_subtitle')
@@ -66,7 +66,7 @@ export class NewStairPage extends LitElement implements AppPage {
   }
 
   private async createStair() {
-    const id = await this.stairRepository.create(this.stairName).toPromise()
+    const id = await this.stairsRepository.create(this.stairName)
     history.pushState(null, '', `/stairs/${id}`)
   }
 

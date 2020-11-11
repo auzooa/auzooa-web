@@ -4,7 +4,7 @@ import { RxFire } from '../../core/rx-fire'
 import firebase from 'firebase'
 import { of } from 'rxjs'
 import { take } from 'rxjs/operators'
-import { StairFirestoreRepository } from './stair-firestore-repository'
+import { StairsFirestoreRepository } from './stairs-firestore-repository'
 
 describe('StairFirestoreRepository', () => {
   it('should create a stair', async () => {
@@ -37,6 +37,6 @@ function setup() {
     firebase,
     rxFire,
     documentReference,
-    stairFirestoreRepository: new StairFirestoreRepository(instance(firebase), instance(rxFire))
+    stairFirestoreRepository: new StairsFirestoreRepository(instance(firebase), instance(rxFire))
   }
 }

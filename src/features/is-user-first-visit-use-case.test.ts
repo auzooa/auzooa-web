@@ -5,7 +5,7 @@ describe('IsUserFirstVisitUseCase', () => {
     jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValue(null)
     const { isUserFirstVisitUseCase } = setup()
 
-    const actual = await isUserFirstVisitUseCase.execute().toPromise()
+    const actual = await isUserFirstVisitUseCase.internalExecute()
 
     expect(actual).toBe(true)
   })
@@ -14,7 +14,7 @@ describe('IsUserFirstVisitUseCase', () => {
     jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValue('false')
     const { isUserFirstVisitUseCase } = setup()
 
-    const actual = await isUserFirstVisitUseCase.execute().toPromise()
+    const actual = await isUserFirstVisitUseCase.internalExecute()
 
     expect(actual).toBe(true)
   })
@@ -23,7 +23,7 @@ describe('IsUserFirstVisitUseCase', () => {
     jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValue('true')
     const { isUserFirstVisitUseCase } = setup()
 
-    const actual = await isUserFirstVisitUseCase.execute().toPromise()
+    const actual = await isUserFirstVisitUseCase.internalExecute()
 
     expect(actual).toBe(false)
   })
