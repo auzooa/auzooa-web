@@ -9,7 +9,7 @@ export class LruCache<T> implements Cache<T> {
   }
 
   set(key: Key, value: T) {
-    return this._lru.set(key, value)
+    this._lru.set(key, value)
   }
 
   delete(key: Key) {

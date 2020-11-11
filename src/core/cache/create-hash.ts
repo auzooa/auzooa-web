@@ -1,3 +1,4 @@
+// @ts-ignore
 const m = [
   -680876936,
   -389564586,
@@ -63,13 +64,13 @@ const m = [
   -1120210379,
   718787259,
   -343485551
-] // eslint-disable-line
-const md5 = function (c) {
+]
+const md5 = function (c: any) {
   var e,
     g,
     f,
     a,
-    h = []
+    h: any[] = []
   c = unescape(encodeURI(c))
   for (var b = c.length, k = [(e = 1732584193), (g = -271733879), ~e, ~g], d = 0; d <= b; )
     h[d >> 2] |= (c.charCodeAt(d) || 128) << (8 * (d++ % 4))
@@ -93,6 +94,7 @@ const md5 = function (c) {
       ]
     for (a = 4; a; ) k[--a] = k[a] + b[a]
   }
+  // @ts-ignore
   for (c = ''; 32 > a; ) c += ((k[a >> 3] >> (4 * (1 ^ (a++ & 7)))) & 15).toString(16)
   return c
 } // eslint-disable-line
