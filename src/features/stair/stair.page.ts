@@ -5,7 +5,6 @@ import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
 import { StairsRepository } from '../new-stair/stairs-repository'
-import { tap } from 'rxjs/operators'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
 import { Code } from '../../core/types/code'
@@ -80,16 +79,10 @@ export class StairPage extends LitElement implements AppPage {
 
   private async setName() {
     if (this.stairId !== undefined && !this.hasLoaded) {
-      this.subscription = this.stairRepository
-        .find(this.stairId)
-        .pipe(
-          tap(stair => {
-            this.nameBehaviourSubject.next(stair.name)
-            this.code = stair.code
-            this.hasLoaded = true
-          })
-        )
-        .subscribe()
+      const stair = await this.stairRepository.find(this.stairId)
+      this.nameBehaviourSubject.next(stair.name)
+      this.code = stair.code
+      this.hasLoaded = true
     }
   }
 

@@ -3,14 +3,13 @@ import { Firebase } from '../../core/firebase'
 import { RxFire } from '../../core/rx-fire'
 import firebase from 'firebase'
 import { of } from 'rxjs'
-import { take } from 'rxjs/operators'
 import { StairsFirestoreRepository } from './stairs-firestore-repository'
 
 describe('StairFirestoreRepository', () => {
   it('should create a stair', async () => {
     const { stairFirestoreRepository, documentReference } = setup()
 
-    const actual = await stairFirestoreRepository.create('bar').pipe(take(1)).toPromise()
+    const actual = await stairFirestoreRepository.create('bar')
 
     expect(actual).toBe('foo')
     verify(documentReference.set(deepEqual({ name: 'bar' }))).once()
