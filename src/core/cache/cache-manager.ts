@@ -1,7 +1,7 @@
 import { LruCache } from './lru-cache'
-import { createHash } from './create-hash'
 import { Cache } from './cache'
 import { singleton } from 'tsyringe'
+import { Md5 } from 'ts-md5/dist/md5'
 
 @singleton()
 export class CacheManager {
@@ -13,7 +13,7 @@ export class CacheManager {
     }
 
     const cache = this.caches[cacheKey]
-    const key = createHash(JSON.stringify(args))
+    const key = new Md5().appendStr(JSON.stringify(args)).end() as string
     const now = Date.now()
 
     if (cache.get(key) === undefined) {

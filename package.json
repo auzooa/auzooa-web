@@ -26,6 +26,7 @@
     "rxfire": "4.0.0",
     "rxjs": "6.6.3",
     "tiny-lru": "7.0.6",
+    "ts-md5": "1.2.7",
     "tsyringe": "4.4.0"
   },
   "devDependencies": {
