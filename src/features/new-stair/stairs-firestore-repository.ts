@@ -1,6 +1,6 @@
-import { of } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { RxFire } from '../../core/rx-fire'
-import { switchMap, take, tap } from 'rxjs/operators'
+import { map, switchMap, take, tap } from 'rxjs/operators'
 import { StairsRepository } from './stairs-repository'
 import { Id } from '../../core/types/id'
 import { injectable } from '../../core/types/injectable'
@@ -8,18 +8,19 @@ import { Firebase } from '../../core/firebase'
 import { inject } from '../../core/types/inject'
 import { TYPES } from '../../types'
 import firebase from 'firebase'
-import { Stair } from './stair'
+import { Stair } from '../stair'
+import { Message } from '../message'
 
 @injectable()
 export class StairsFirestoreRepository implements StairsRepository {
-  private stairs: firebase.firestore.CollectionReference
+  private stairs: firebase.firestore.CollectionReference = this.firebase
+    .firestore()
+    .collection('stairs')
 
   constructor(
     @inject(TYPES.FIREBASE) private readonly firebase: Firebase,
     @inject(TYPES.RX_FIRE) private readonly rxFire: RxFire
-  ) {
-    this.stairs = this.firebase.firestore().collection('stairs')
-  }
+  ) {}
 
   create(name: string): Promise<Id> {
     return this.rxFire
@@ -40,5 +41,12 @@ export class StairsFirestoreRepository implements StairsRepository {
         switchMap(x => of((x.data()! as unknown) as Stair))
       )
       .toPromise()
+  }
+
+  findMessages(id: Id): Observable<Message[]> {
+    return this.rxFire.doc(this.stairs.doc(id)).pipe(
+      switchMap(x => of((x.data()! as unknown) as Stair)),
+      map(x => x.messages)
+    )
   }
 }

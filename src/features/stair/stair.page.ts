@@ -7,8 +7,11 @@ import { queryParentRouterSlot } from 'router-slot'
 import { StairsRepository } from '../new-stair/stairs-repository'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
-import { Code } from '../../core/types/code'
 import { resolve } from '../../core/types/resolve'
+import { Id } from '../../core/types/id'
+import { Stair } from '../stair'
+import { Message } from '../message'
+import { tap } from 'rxjs/operators'
 
 @customElement('app-stair')
 export class StairPage extends LitElement implements AppPage {
@@ -18,17 +21,21 @@ export class StairPage extends LitElement implements AppPage {
   @resolve(TYPES.TRANSLATION)
   private readonly translation!: Translation
 
-  @property({ type: String })
-  private code: Code = ''
+  @property({ type: Object })
+  private stair?: Stair
+
+  @property({ type: Object })
+  private messages: Message[] = []
 
   nameBehaviourSubject = new BehaviorSubject('')
 
   @property({ type: Object })
   name: Observable<string> = this.nameBehaviourSubject.asObservable()
 
-  private stairId: string | undefined
+  private stairId?: Id
   private hasLoaded = false
-  private subscription!: Subscription
+  private nameSubscription!: Subscription
+  private messagesSubscription!: Subscription
 
   static get styles() {
     return [
@@ -74,14 +81,23 @@ export class StairPage extends LitElement implements AppPage {
 
   disconnectedCallback() {
     super.disconnectedCallback()
-    this.subscription.unsubscribe()
+    this.nameSubscription.unsubscribe()
+    this.messagesSubscription.unsubscribe()
   }
 
   private async setName() {
     if (this.stairId !== undefined && !this.hasLoaded) {
       const stair = await this.stairRepository.find(this.stairId)
       this.nameBehaviourSubject.next(stair.name)
-      this.code = stair.code
+      this.stair = stair
+      this.messagesSubscription = this.stairRepository
+        .findMessages(this.stairId)
+        .pipe(
+          tap(x => {
+            this.messages = x
+          })
+        )
+        .subscribe()
       this.hasLoaded = true
     }
   }
@@ -95,13 +111,21 @@ export class StairPage extends LitElement implements AppPage {
         <app-message class="message">
           ${subscribe(this.translation('chat_instruction'))}
         </app-message>
-        <app-input-code .readonly="${true}" .value="${this.code}"></app-input-code>
+        <app-input-code .readonly="${true}" .value="${this.stair?.name}"></app-input-code>
         <app-message class="message">${subscribe(this.translation('chat_template'))}</app-message>
         <app-button>${subscribe(this.translation('chat_downloadTemplate'))}</app-button>
         <app-message class="message">
           ${subscribe(this.translation('chat_nextSteps'))}
         </app-message>
       </header>
+      <section class="messages">
+        ${this.messages.map(
+          x =>
+            html`<app-message .sender="${x.sender}" .timestamp="${x.timestamp}"
+              >${x.content}</app-message
+            >`
+        )}
+      </section>
       <app-input-text
         class="write-message"
         .label="${subscribe(this.translation('chat_newMessage'))}"

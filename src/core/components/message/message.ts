@@ -1,8 +1,15 @@
-import { css, customElement, html, LitElement } from 'lit-element'
+import { css, customElement, html, LitElement, property } from 'lit-element'
 import { general } from '../../../styles/general'
+import { Datetime } from '../../utils/datetime'
 
 @customElement('app-message')
 export class Message extends LitElement {
+  @property({ type: String })
+  sender?: string
+
+  @property({ type: Object })
+  timestamp?: Datetime
+
   static get styles() {
     return [
       general,
@@ -19,6 +26,7 @@ export class Message extends LitElement {
 
   render() {
     return html`<section class="message">
+      ${this.sender} ${this.timestamp}
       <slot></slot>
     </section>`
   }
