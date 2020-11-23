@@ -2,5 +2,6 @@ export const TYPES = {
   STAIR_REPOSITORY: Symbol('STAIR_REPOSITORY'),
   FIREBASE: Symbol('FIREBASE'),
   RX_FIRE: Symbol('RX_FIRE'),
-  TRANSLATION: Symbol('TRANSLATION')
+  TRANSLATION: Symbol('TRANSLATION'),
+  STORAGE: Symbol('STORAGE')
 }

@@ -1,9 +1,10 @@
 import { IsUserFirstVisitUseCase } from './is-user-first-visit-use-case'
+import { instance, mock, when } from 'ts-mockito'
 
 describe('IsUserFirstVisitUseCase', () => {
   it('should check if it is the first visit of the user', async () => {
-    jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValue(null)
-    const { isUserFirstVisitUseCase } = setup()
+    const { isUserFirstVisitUseCase, storage } = setup()
+    when(storage.getItem('HAS_USER_VISITED')).thenReturn(null)
 
     const actual = await isUserFirstVisitUseCase.internalExecute()
 
@@ -11,8 +12,8 @@ describe('IsUserFirstVisitUseCase', () => {
   })
 
   it('should check if it is the first visit of the user if it is specified', async () => {
-    jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValue('false')
-    const { isUserFirstVisitUseCase } = setup()
+    const { isUserFirstVisitUseCase, storage } = setup()
+    when(storage.getItem('HAS_USER_VISITED')).thenReturn('false')
 
     const actual = await isUserFirstVisitUseCase.internalExecute()
 
@@ -20,8 +21,8 @@ describe('IsUserFirstVisitUseCase', () => {
   })
 
   it('should check if it is not the first visit of the user', async () => {
-    jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValue('true')
-    const { isUserFirstVisitUseCase } = setup()
+    const { isUserFirstVisitUseCase, storage } = setup()
+    when(storage.getItem('HAS_USER_VISITED')).thenReturn('true')
 
     const actual = await isUserFirstVisitUseCase.internalExecute()
 
@@ -30,7 +31,9 @@ describe('IsUserFirstVisitUseCase', () => {
 })
 
 function setup() {
+  const storage = mock<Storage>()
   return {
-    isUserFirstVisitUseCase: new IsUserFirstVisitUseCase()
+    storage,
+    isUserFirstVisitUseCase: new IsUserFirstVisitUseCase(instance(storage))
   }
 }

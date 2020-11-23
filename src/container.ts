@@ -10,6 +10,7 @@ import { app } from './core/firestore'
 import { StairsRepository } from './features/new-stair/stairs-repository'
 import { StairsFirestoreRepository } from './features/new-stair/stairs-firestore-repository'
 
+container.register(TYPES.STORAGE, { useValue: window.localStorage })
 container.register<Translation>(TYPES.TRANSLATION, {
   useValue: key =>
     container
