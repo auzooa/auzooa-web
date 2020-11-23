@@ -122,7 +122,7 @@ export class StairPage extends LitElement implements AppPage {
           <app-message class="message">
             ${subscribe(this.translation('chat_instruction'))}
           </app-message>
-          <app-input-code .readonly="${true}" .value="${this.stair?.name}"></app-input-code>
+          <app-input-code .readonly="${true}" .value="${this.stair?.code}"></app-input-code>
           <app-message class="message">${subscribe(this.translation('chat_template'))}</app-message>
           <app-button>${subscribe(this.translation('chat_downloadTemplate'))}</app-button>
           <app-message class="message">

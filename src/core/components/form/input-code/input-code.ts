@@ -15,19 +15,24 @@ export class InputCode extends LitElement {
     return [
       general,
       css`
+        :host {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          gap: var(--s);
+        }
+
         input {
           border-radius: 4px;
           border: none;
-          margin-right: var(--xs);
           color: var(--input-text-color, var(--background-color));
           background-color: var(--input-text-background-color, var(--on-background-color));
           max-width: 40px;
           padding: var(--m) 0;
           text-align: center;
+          margin: 0;
         }
-        input:not(:first-child) {
-          margin-left: var(--xs);
-        }
+
         .dash {
           display: inline;
           color: white;
