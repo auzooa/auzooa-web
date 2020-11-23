@@ -10,6 +10,7 @@ import { TYPES } from '../../types'
 import firebase from 'firebase'
 import { Stair } from '../stair'
 import { Message } from '../message'
+import { Datetime } from '../../core/utils/datetime'
 
 @injectable()
 export class StairsFirestoreRepository implements StairsRepository {
@@ -45,7 +46,16 @@ export class StairsFirestoreRepository implements StairsRepository {
 
   findMessages(id: Id): Observable<Message[]> {
     return this.rxFire.doc(this.stairs.doc(id)).pipe(
-      switchMap(x => of((x.data()! as unknown) as Stair)),
+      switchMap(x => {
+        const data = x.data()
+        return of(({
+          ...data,
+          messages: data?.messages.map((x: any) => ({
+            ...x,
+            timestamp: Datetime.fromJsDate(x?.timestamp.toDate())
+          }))
+        } as unknown) as Stair)
+      }),
       map(x => x.messages)
     )
   }

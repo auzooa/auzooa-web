@@ -53,15 +53,25 @@ export class StairPage extends LitElement implements AppPage {
           height: 100%;
         }
 
+        .scrolling-area {
+          overflow-y: scroll;
+        }
+
         .instructions {
           display: flex;
           flex-direction: column;
           align-items: center;
-          overflow-y: scroll;
         }
 
         app-neighbours {
           margin-top: var(--s);
+        }
+
+        .messages {
+          display: flex;
+          flex-direction: column;
+          gap: var(--s);
+          width: 100%;
         }
 
         .message {
@@ -106,25 +116,27 @@ export class StairPage extends LitElement implements AppPage {
     this.stairId = queryParentRouterSlot(this)?.match?.params.id
     this.setName()
     return html` <div class="wrapper">
-      <header class="instructions">
-        <app-neighbours></app-neighbours>
-        <app-message class="message">
-          ${subscribe(this.translation('chat_instruction'))}
-        </app-message>
-        <app-input-code .readonly="${true}" .value="${this.stair?.name}"></app-input-code>
-        <app-message class="message">${subscribe(this.translation('chat_template'))}</app-message>
-        <app-button>${subscribe(this.translation('chat_downloadTemplate'))}</app-button>
-        <app-message class="message">
-          ${subscribe(this.translation('chat_nextSteps'))}
-        </app-message>
-      </header>
-      <section class="messages">
-        ${this.messages.map(
-          x =>
-            html`<app-message .sender="${x.sender}" .timestamp="${x.timestamp}"
-              >${x.content}</app-message
-            >`
-        )}
+      <section class="scrolling-area">
+        <header class="instructions">
+          <app-neighbours></app-neighbours>
+          <app-message class="message">
+            ${subscribe(this.translation('chat_instruction'))}
+          </app-message>
+          <app-input-code .readonly="${true}" .value="${this.stair?.name}"></app-input-code>
+          <app-message class="message">${subscribe(this.translation('chat_template'))}</app-message>
+          <app-button>${subscribe(this.translation('chat_downloadTemplate'))}</app-button>
+          <app-message class="message">
+            ${subscribe(this.translation('chat_nextSteps'))}
+          </app-message>
+        </header>
+        <section class="messages">
+          ${this.messages.map(
+            x =>
+              html`<app-message .sender="${x.sender}" .timestamp="${x.timestamp}"
+                >${x.content}</app-message
+              >`
+          )}
+        </section>
       </section>
       <app-input-text
         class="write-message"
