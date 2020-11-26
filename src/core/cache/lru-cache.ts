@@ -19,4 +19,8 @@ export class LruCache<T> implements Cache<T> {
   clear() {
     this._lru.clear()
   }
+
+  has(key: Key) {
+    return this._lru.has(key)
+  }
 }
