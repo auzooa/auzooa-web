@@ -8,7 +8,7 @@ export abstract class UseCase<Result = void, Param = void> {
   execute(param: Param): Promise<Result> {
     const cacheManager = container.resolve<CacheManager>(CacheManager)
     const cacheKey = `${this.constructor.name}`
-    const result = cacheManager.cache(undefined, cacheKey, this.internalExecute, param)
+    const result = cacheManager.cache(cacheKey, () => this.internalExecute(param), param)
     this.invalidates.forEach(invalidation => {
       cacheManager.invalidateCache(invalidation)
     })
