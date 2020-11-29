@@ -50,6 +50,7 @@ export class StairsFirestoreRepository implements StairsRepository {
         const data = x.data()
         return of(({
           ...data,
+          // TODO: Remove any
           messages: data?.messages.map((x: any) => ({
             ...x,
             timestamp: Datetime.fromJsDate(x?.timestamp.toDate())
