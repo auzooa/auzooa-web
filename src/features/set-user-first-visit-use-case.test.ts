@@ -1,9 +1,10 @@
 import { SetUserFirstVisitUseCase } from './set-user-first-visit-use-case'
+import { instance, mock, when } from 'ts-mockito'
 
 describe('SetUserFirstVisitUseCase', () => {
   it("should set the user's first visit", async () => {
-    const { setUserFirstVisitUseCase } = setup()
-    jest.spyOn(window.localStorage.__proto__, 'setItem')
+    const { setUserFirstVisitUseCase, storage } = setup()
+    when(storage.getItem('HAS_USER_VISITED')).thenReturn(null)
 
     await setUserFirstVisitUseCase.internalExecute()
 
@@ -12,7 +13,9 @@ describe('SetUserFirstVisitUseCase', () => {
 })
 
 function setup() {
+  const storage = mock<Storage>()
   return {
-    setUserFirstVisitUseCase: new SetUserFirstVisitUseCase()
+    storage,
+    setUserFirstVisitUseCase: new SetUserFirstVisitUseCase(instance(storage))
   }
 }
