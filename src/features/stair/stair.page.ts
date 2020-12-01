@@ -4,7 +4,6 @@ import { AppPage } from '../../core/components/app-page'
 import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { queryParentRouterSlot } from 'router-slot'
-import { StairsRepository } from '../new-stair/stairs-repository'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { subscribe } from '../../core/subscribe'
 import { resolve } from '../../core/types/resolve'
@@ -12,11 +11,16 @@ import { Id } from '../../core/types/id'
 import { Stair } from '../stair'
 import { Message } from '../message'
 import { tap } from 'rxjs/operators'
+import { GetStairQry } from './get-stair-qry'
+import { GetMessagesLiveQry } from './get-messages-live-qry'
 
 @customElement('app-stair')
 export class StairPage extends LitElement implements AppPage {
-  @resolve(TYPES.STAIR_REPOSITORY)
-  private readonly stairRepository!: StairsRepository
+  @resolve()
+  private readonly getStairQry!: GetStairQry
+
+  @resolve()
+  private readonly getMessagesLiveQry!: GetMessagesLiveQry
 
   @resolve(TYPES.TRANSLATION)
   private readonly translation!: Translation
@@ -97,11 +101,11 @@ export class StairPage extends LitElement implements AppPage {
 
   private async setName() {
     if (this.stairId !== undefined && !this.hasLoaded) {
-      const stair = await this.stairRepository.find(this.stairId)
+      const stair = await this.getStairQry.execute(this.stairId)
       this.nameBehaviourSubject.next(stair.name)
       this.stair = stair
-      this.messagesSubscription = this.stairRepository
-        .findMessages(this.stairId)
+      this.messagesSubscription = this.getMessagesLiveQry
+        .execute(this.stairId)
         .pipe(
           tap(x => {
             this.messages = x

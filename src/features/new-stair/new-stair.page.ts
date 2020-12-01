@@ -5,18 +5,17 @@ import { TYPES } from '../../types'
 import { Translation } from '../../core/language/translation'
 import { IconName } from '../../core/components/icon/icon-name'
 import { subscribe } from '../../core/subscribe'
-import { StairsRepository } from './stairs-repository'
 import { AppEvent } from '../../core/app-event'
 import { resolve } from '../../core/types/resolve'
+import { CreateStairCmd } from './create-stair-cmd'
 
 @customElement('app-new-stair')
 export class NewStairPage extends LitElement implements AppPage {
   @resolve(TYPES.TRANSLATION)
   translation!: Translation
 
-  // TODO: Use use case
-  @resolve(TYPES.STAIR_REPOSITORY)
-  stairsRepository!: StairsRepository
+  @resolve()
+  createStairCmd!: CreateStairCmd
 
   name = this.translation('newChat_name')
   subtitle = this.translation('newChat_subtitle')
@@ -66,7 +65,7 @@ export class NewStairPage extends LitElement implements AppPage {
   }
 
   private async createStair() {
-    const id = await this.stairsRepository.create(this.stairName)
+    const id = await this.createStairCmd.execute(this.stairName)
     history.pushState(null, '', `/stairs/${id}`)
   }
 
